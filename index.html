@@ -34,95 +34,59 @@
             </p>
         </section>
 
-        <!-- Dynamic Selection Columns Grid -->
-        <section class="persona-selector-grid">
+        <!-- Dynamic Slanted Split-Screen Panel Selector -->
+        <section class="split-screen-selector" id="manga-selector">
             
-            <!-- Left Persona: The Expensive (Nanamin) -->
-            <div class="persona-card expensive active" data-persona="expensive" id="persona-expensive">
-                <div class="persona-image-wrapper">
-                    <img src="assets/expensive.png" alt="Yusuf - Premium Developer Persona (Nanami Vibe)">
-                </div>
-                <div class="persona-info">
-                    <div class="persona-header">
-                        <h2 class="persona-title">The Executive</h2>
-                        <span class="persona-badge">Premium</span>
-                    </div>
-                    <p class="persona-tagline">Fast delivery & impeccable industrial-grade code, priced accordingly.</p>
-                    
-                    <div class="persona-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Speed</span>
-                            <div class="stat-bar"><div class="stat-fill" data-width="95"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Quality</span>
-                            <div class="stat-bar"><div class="stat-fill" data-width="100"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Cost</span>
-                            <div class="stat-bar"><div class="stat-fill" data-width="95"></div></div>
-                        </div>
-                    </div>
+            <!-- Left Panel: The Executive (Nanamin) -->
+            <div class="split-panel expensive active" data-persona="expensive" id="panel-expensive">
+                <div class="panel-background-glow"></div>
+                <img src="assets/expensive.png" alt="Yusuf - Premium Developer Persona (Nanami Vibe)">
+                <div class="panel-overlay-info">
+                    <div class="panel-badge-vibe">Premium Alignment</div>
+                    <h2 class="panel-name">The Executive</h2>
+                    <p class="panel-tagline">Fast + High Quality = Expensive</p>
+                    <div class="panel-action-hint">Review Scope ✦</div>
                 </div>
             </div>
 
-            <!-- Middle Persona: The Titan (Murasakibara) -->
-            <div class="persona-card slow" data-persona="slow" id="persona-slow">
-                <div class="persona-image-wrapper">
-                    <img src="assets/slow.png" alt="Yusuf - High Quality Developer Persona (Murasakibara Vibe)">
-                </div>
-                <div class="persona-info">
-                    <div class="persona-header">
-                        <h2 class="persona-title">The Titan</h2>
-                        <span class="persona-badge">Delayed</span>
-                    </div>
-                    <p class="persona-tagline">Deep-architected scalable systems, but delivers whenever he wakes up.</p>
-                    
-                    <div class="persona-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Speed</span>
-                            <div class="stat-bar"><div class="stat-fill" data-width="15"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Quality</span>
-                            <div class="stat-bar"><div class="stat-fill" data-width="98"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Cost</span>
-                            <div class="stat-bar"><div class="stat-fill" data-width="35"></div></div>
-                        </div>
-                    </div>
+            <!-- Middle Panel: The Titan (Murasakibara) -->
+            <div class="split-panel slow" data-persona="slow" id="panel-slow">
+                <div class="panel-background-glow"></div>
+                <img src="assets/slow.png" alt="Yusuf - High Quality Developer Persona (Murasakibara Vibe)">
+                <div class="panel-overlay-info">
+                    <div class="panel-badge-vibe">Slow Alignment</div>
+                    <h2 class="panel-name">The Titan</h2>
+                    <p class="panel-tagline">High Quality + Cheap = Slow</p>
+                    <div class="panel-action-hint">Review Scope ✦</div>
                 </div>
             </div>
 
-            <!-- Right Persona: The Underdog (Yamcha) -->
-            <div class="persona-card cheap" data-persona="cheap" id="persona-cheap">
-                <div class="persona-image-wrapper">
-                    <img src="assets/cheap.png" alt="Yusuf - Fast and Cheap Developer Persona (Yamcha Vibe)">
-                </div>
-                <div class="persona-info">
-                    <div class="persona-header">
-                        <h2 class="persona-title">The Underdog</h2>
-                        <span class="persona-badge">Budget</span>
-                    </div>
-                    <p class="persona-tagline">Blazing fast prototype built immediately, highly unstable structure.</p>
-                    
-                    <div class="persona-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Speed</span>
-                            <div class="stat-bar"><div class="stat-fill" data-width="90"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Quality</span>
-                            <div class="stat-bar"><div class="stat-fill" data-width="25"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Cost</span>
-                            <div class="stat-bar"><div class="stat-fill" data-width="10"></div></div>
-                        </div>
-                    </div>
+            <!-- Right Panel: The Underdog (Yamcha) -->
+            <div class="split-panel cheap" data-persona="cheap" id="panel-cheap">
+                <div class="panel-background-glow"></div>
+                <img src="assets/cheap.png" alt="Yusuf - Fast and Cheap Developer Persona (Yamcha Vibe)">
+                <div class="panel-overlay-info">
+                    <div class="panel-badge-vibe">Budget Alignment</div>
+                    <h2 class="panel-name">The Underdog</h2>
+                    <p class="panel-tagline">Fast + Cheap = Budget</p>
+                    <div class="panel-action-hint">Review Scope ✦</div>
                 </div>
             </div>
+
+            <!-- Hand-drawn ink brush stroke overlay using SVG and Turbulence filters -->
+            <svg class="manga-borders" viewBox="0 0 1000 550" preserveAspectRatio="none">
+                <defs>
+                    <!-- Custom SVG Displacement Filter to warp clean vector paths into organic sketch strokes -->
+                    <filter id="rough-brush" x="-10%" y="-10%" width="120%" height="120%">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="4" result="noise" />
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="12" xChannelSelector="R" yChannelSelector="G" />
+                    </filter>
+                </defs>
+                
+                <!-- Slanted brush boundaries -->
+                <path class="brush-path" id="brush-line-1" d="M 480 -20 Q 440 275, 400 570" stroke="black" stroke-width="18" fill="none" stroke-linecap="round" filter="url(#rough-brush)" />
+                <path class="brush-path" id="brush-line-2" d="M 720 -20 Q 750 275, 780 570" stroke="black" stroke-width="18" fill="none" stroke-linecap="round" filter="url(#rough-brush)" />
+            </svg>
 
         </section>
 
