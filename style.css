@@ -1,0 +1,448 @@
+/* Import high-end modern technical font */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;700;900&display=swap');
+
+:root {
+    --bg-dark: #07070a;
+    --card-bg: rgba(13, 13, 20, 0.6);
+    --border-rgba: rgba(255, 255, 255, 0.05);
+    
+    /* Persona color tokens */
+    --gold-aura: 45, 100%, 55%;
+    --purple-aura: 275, 100%, 60%;
+    --green-aura: 145, 100%, 50%;
+    
+    /* Active variables (controlled by JS or hover) */
+    --accent-color: hsl(var(--gold-aura));
+    --accent-glow: hsla(var(--gold-aura), 0.15);
+    
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Space Grotesk', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(20, 10, 40, 0.4) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(10, 30, 20, 0.3) 0px, transparent 50%);
+    color: #f3f4f6;
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+header {
+    padding: 2.5rem 5% 1.5rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-rgba);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.8rem;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #fff 40%, #71717a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo span {
+    color: var(--accent-color);
+    -webkit-text-fill-color: initial;
+    text-shadow: 0 0 15px var(--accent-glow);
+    transition: all 0.4s ease;
+}
+
+nav a {
+    color: #a1a1aa;
+    text-decoration: none;
+    margin-left: 2rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+nav a:hover, nav a.active {
+    color: #fff;
+}
+
+/* Main Layout container */
+main {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 2rem 2rem 8rem 2rem;
+}
+
+/* Section Header styling */
+.hero-title-area {
+    text-align: center;
+    margin: 3rem auto 4rem auto;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-rgba);
+    border-radius: 100px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #a1a1aa;
+    margin-bottom: 1.5rem;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -2px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.hero-subtitle {
+    color: #a1a1aa;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Three columns layout matching upload exactly */
+.persona-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+.persona-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Individual persona accent colors */
+.persona-card.expensive {
+    --card-accent: hsl(var(--gold-aura));
+    --card-accent-glow: hsla(var(--gold-aura), 0.35);
+}
+
+.persona-card.slow {
+    --card-accent: hsl(var(--purple-aura));
+    --card-accent-glow: hsla(var(--purple-aura), 0.35);
+}
+
+.persona-card.cheap {
+    --card-accent: hsl(var(--green-aura));
+    --card-accent-glow: hsla(var(--green-aura), 0.35);
+}
+
+.persona-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 0%, var(--card-accent-glow), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Image container with strict ratio cropping */
+.persona-image-wrapper {
+    width: 100%;
+    height: 380px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.persona-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    filter: grayscale(15%) contrast(105%);
+}
+
+/* Hover/Active aura frame styling */
+.persona-card:hover, .persona-card.active {
+    transform: translateY(-8px);
+    border-color: var(--card-accent);
+    box-shadow: 
+        0 20px 40px -15px var(--card-accent-glow),
+        0 0 0 1px var(--card-accent);
+}
+
+.persona-card:hover::before, .persona-card.active::before {
+    opacity: 1;
+}
+
+.persona-card:hover img, .persona-card.active img {
+    transform: scale(1.05);
+    filter: grayscale(0%) contrast(110%);
+}
+
+/* Card Content / Details */
+.persona-info {
+    padding: 1.8rem;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.persona-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.persona-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #fff;
+}
+
+.persona-tagline {
+    font-size: 0.85rem;
+    color: #a1a1aa;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+.persona-badge {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-rgba);
+    color: var(--card-accent);
+    border-color: var(--card-accent-glow);
+}
+
+/* Iron Triangle visual rating stats */
+.persona-stats {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1.2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: #71717a;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.stat-bar {
+    width: 60%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.stat-fill {
+    height: 100%;
+    background-color: var(--card-accent);
+    box-shadow: 0 0 10px var(--card-accent);
+    border-radius: 100px;
+    transition: width 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Bottom Console section detailing active selection */
+.details-console {
+    background: rgba(10, 10, 15, 0.8);
+    border: 1px solid var(--border-rgba);
+    border-radius: 24px;
+    padding: 3rem;
+    backdrop-filter: blur(16px);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8);
+    position: relative;
+    overflow: hidden;
+}
+
+.details-console::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+}
+
+.console-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.console-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.console-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+.console-desc {
+    color: #d1d5db;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.feature-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: #a1a1aa;
+}
+
+.feature-item::before {
+    content: '✦';
+    color: var(--accent-color);
+    text-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* Pricing and CTAs area */
+.console-right {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.pricing-label {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #71717a;
+    margin-bottom: 0.5rem;
+}
+
+.price-display {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+}
+
+.price-display span {
+    font-size: 1rem;
+    color: #71717a;
+    font-weight: 400;
+}
+
+.price-condition {
+    color: var(--accent-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+.cta-button {
+    width: 100%;
+    padding: 1.2rem;
+    border-radius: 100px;
+    border: none;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    background: var(--accent-color);
+    color: #000;
+    box-shadow: 0 10px 30px -5px var(--accent-glow);
+    transition: all 0.3s;
+    text-transform: uppercase;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px -3px var(--accent-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 968px) {
+    .persona-selector-grid {
+        grid-template-columns: 1fr;
+    }
+    .details-console {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2rem;
+    }
+    .persona-image-wrapper {
+        height: 450px;
+    }
+}

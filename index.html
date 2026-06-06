@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Premium SEO Best Practices -->
+    <title>Yusuf | Choose Your Developer | Freelance Persona Portfolio</title>
+    <meta name="description" content="Portfolio of Yusuf, full-stack developer. Play with the Iron Triangle of Freelance web development and pick the perfect persona for your budget and timeline.">
+    <meta name="keywords" content="Yusuf, Full-stack developer, freelancer, iron triangle, Next.js developer, product design, creative web developer">
+    <meta name="author" content="Yusuf">
+    
+    <!-- Stylesheet links -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">YUSUF<span>.DEV</span></div>
+        <nav>
+            <a href="#" class="active">Choose Persona</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Title and Introduction Area -->
+        <section class="hero-title-area">
+            <div class="badge">The Freelance Iron Triangle</div>
+            <h1>Choose Your Developer</h1>
+            <p class="hero-subtitle">
+                Select one of my three active developer states. Balancing Speed, Cost, and Difficulty is an iron law of engineering. Pick your build to review rates and deployment parameters.
+            </p>
+        </section>
+
+        <!-- Dynamic Selection Columns Grid -->
+        <section class="persona-selector-grid">
+            
+            <!-- Left Persona: The Expensive (Nanamin) -->
+            <div class="persona-card expensive active" data-persona="expensive" id="persona-expensive">
+                <div class="persona-image-wrapper">
+                    <img src="assets/expensive.png" alt="Yusuf - Premium Developer Persona (Nanami Vibe)">
+                </div>
+                <div class="persona-info">
+                    <div class="persona-header">
+                        <h2 class="persona-title">The Executive</h2>
+                        <span class="persona-badge">Premium</span>
+                    </div>
+                    <p class="persona-tagline">Fast delivery & impeccable industrial-grade code, priced accordingly.</p>
+                    
+                    <div class="persona-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Speed</span>
+                            <div class="stat-bar"><div class="stat-fill" data-width="95"></div></div>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Quality</span>
+                            <div class="stat-bar"><div class="stat-fill" data-width="100"></div></div>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Cost</span>
+                            <div class="stat-bar"><div class="stat-fill" data-width="95"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle Persona: The Titan (Murasakibara) -->
+            <div class="persona-card slow" data-persona="slow" id="persona-slow">
+                <div class="persona-image-wrapper">
+                    <img src="assets/slow.png" alt="Yusuf - High Quality Developer Persona (Murasakibara Vibe)">
+                </div>
+                <div class="persona-info">
+                    <div class="persona-header">
+                        <h2 class="persona-title">The Titan</h2>
+                        <span class="persona-badge">Delayed</span>
+                    </div>
+                    <p class="persona-tagline">Deep-architected scalable systems, but delivers whenever he wakes up.</p>
+                    
+                    <div class="persona-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Speed</span>
+                            <div class="stat-bar"><div class="stat-fill" data-width="15"></div></div>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Quality</span>
+                            <div class="stat-bar"><div class="stat-fill" data-width="98"></div></div>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Cost</span>
+                            <div class="stat-bar"><div class="stat-fill" data-width="35"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Persona: The Underdog (Yamcha) -->
+            <div class="persona-card cheap" data-persona="cheap" id="persona-cheap">
+                <div class="persona-image-wrapper">
+                    <img src="assets/cheap.png" alt="Yusuf - Fast and Cheap Developer Persona (Yamcha Vibe)">
+                </div>
+                <div class="persona-info">
+                    <div class="persona-header">
+                        <h2 class="persona-title">The Underdog</h2>
+                        <span class="persona-badge">Budget</span>
+                    </div>
+                    <p class="persona-tagline">Blazing fast prototype built immediately, highly unstable structure.</p>
+                    
+                    <div class="persona-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Speed</span>
+                            <div class="stat-bar"><div class="stat-fill" data-width="90"></div></div>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Quality</span>
+                            <div class="stat-bar"><div class="stat-fill" data-width="25"></div></div>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Cost</span>
+                            <div class="stat-bar"><div class="stat-fill" data-width="10"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Detailed Console Panel displaying active selections -->
+        <section class="details-console" id="details-console">
+            <div class="console-left">
+                <div class="console-meta">
+                    <span class="persona-badge" id="console-vibe">Kento Nanami Vibe</span>
+                </div>
+                <h3 class="console-title" id="console-title">Yusuf: The Executive</h3>
+                <blockquote class="console-quote" id="console-quote" style="font-style: italic; color: #a1a1aa; border-left: 3px solid var(--accent-color); padding-left: 1rem; margin: 1rem 0;">
+                    "Freelance work is nothing but a set of transactions. Let's do this efficiently, with zero wasted motion, and go home on time."
+                </blockquote>
+                <p class="console-desc" id="console-desc">
+                    Immediate Delivery, Absolute Masterclass, Flawless Code.
+                </p>
+                
+                <h4 style="margin-top: 1.5rem; font-family: var(--font-heading); text-transform: uppercase; font-size: 1rem; letter-spacing: 1px;">Selected Project Scope:</h4>
+                <ul class="feature-list" id="feature-list">
+                    <li class="feature-item">100% test coverage guaranteed</li>
+                    <li class="feature-item">Next.js App Router Architecture</li>
+                    <li class="feature-item">Sleek custom micro-interactions</li>
+                    <li class="feature-item">Premium SEO & automated setups</li>
+                    <li class="feature-item">Delivered inside 72 business hours</li>
+                    <li class="feature-item">Surgical clean vanilla code</li>
+                </ul>
+            </div>
+            
+            <div class="console-right">
+                <div class="pricing-label">Guaranteed Project Budget</div>
+                <div class="price-display" id="console-price">$15,000<span>/project</span></div>
+                <div class="price-condition" id="console-condition">FAST + HIGH QUALITY = EXPENSIVE</div>
+                <button class="cta-button">Initiate Project Contract</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Interactive script linking -->
+    <script src="index.js"></script>
+</body>
+</html>
