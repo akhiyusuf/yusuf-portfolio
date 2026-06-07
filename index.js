@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const panels = document.querySelectorAll('.split-panel');
     const mangaSelector = document.getElementById('manga-selector');
     const consoleArea = document.getElementById('details-console');
+    const extendedArea = document.getElementById('extended-portfolio');
     const consoleTitle = document.getElementById('console-title');
     const consoleVibe = document.getElementById('console-vibe');
     const consoleQuote = document.getElementById('console-quote');
@@ -98,11 +99,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroH1 = document.querySelector('.hero-title-area h1');
     const heroSubtitle = document.querySelector('.hero-title-area .hero-subtitle');
 
+    // Active selection tracking
+    let selectedPersona = null;
+
     // Divider coordinates for different states
     const dividerPaths = {
         intro: {
             line1: "M 360 -20 Q 330 275, 300 570",
             line2: "M 690 -20 Q 660 275, 630 570"
+        },
+        hover_expensive: {
+            line1: "M 500 -20 Q 460 275, 420 570",
+            line2: "M 750 -20 Q 730 275, 710 570"
+        },
+        hover_slow: {
+            line1: "M 250 -20 Q 230 275, 210 570",
+            line2: "M 750 -20 Q 770 275, 790 570"
+        },
+        hover_cheap: {
+            line1: "M 250 -20 Q 230 275, 210 570",
+            line2: "M 500 -20 Q 520 275, 540 570"
         },
         expensive: {
             line1: "M 600 -20 Q 560 275, 520 570",
@@ -139,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Helper to collapse and reset selectors back to neutral balanced split
     function resetToIntro() {
+        selectedPersona = null;
         panels.forEach(p => p.classList.remove('active'));
         
         if (mangaSelector) {
@@ -150,9 +167,12 @@ document.addEventListener('DOMContentLoaded', () => {
             line2.setAttribute('d', dividerPaths.intro.line2);
         }
 
-        // Collapse console
+        // Collapse console and hide extended portfolio
         if (consoleArea) {
             consoleArea.classList.remove('active');
+        }
+        if (extendedArea) {
+            extendedArea.classList.remove('active');
         }
 
         // Morph header text back to intro instructions
@@ -163,43 +183,82 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     panels.forEach(panel => {
-        panel.addEventListener('click', () => {
-            const personaId = panel.getAttribute('data-persona');
+        const personaId = panel.getAttribute('data-persona');
+        const selectBtn = panel.querySelector('.select-persona-btn');
+
+        // Desktop Hover triggers
+        panel.addEventListener('mouseenter', () => {
+            const isMobile = window.innerWidth <= 968;
+            if (isMobile) return;
+            
+            if (mangaSelector) {
+                mangaSelector.className = `split-screen-selector hover-${personaId}`;
+            }
+            if (line1 && line2 && dividerPaths[`hover_${personaId}`]) {
+                line1.setAttribute('d', dividerPaths[`hover_${personaId}`].line1);
+                line2.setAttribute('d', dividerPaths[`hover_${personaId}`].line2);
+            }
+        });
+
+        panel.addEventListener('mouseleave', () => {
+            const isMobile = window.innerWidth <= 968;
+            if (isMobile) return;
+            
+            if (mangaSelector) {
+                mangaSelector.className = 'split-screen-selector';
+            }
+            if (line1 && line2) {
+                line1.setAttribute('d', dividerPaths.intro.line1);
+                line2.setAttribute('d', dividerPaths.intro.line2);
+            }
+        });
+
+        // Trigger locking and full selection
+        const triggerSelection = (e) => {
+            if (e) e.stopPropagation(); // Avoid event bubble loop
             const data = personas[personaId];
 
             if (!data) return;
 
-            // If the user clicks on the already active panel, reset to intro state
-            if (panel.classList.contains('active')) {
+            // If the user clicks the active locked panel, unlock it and reset to intro
+            if (selectedPersona === personaId) {
                 resetToIntro();
                 return;
             }
+
+            selectedPersona = personaId;
 
             // Update active panel class
             panels.forEach(p => p.classList.remove('active'));
             panel.classList.add('active');
 
-            // Set parent container state class
+            const isMobile = window.innerWidth <= 968;
+
+            // On mobile, set parent class to state-persona to expand active card
+            // On desktop, do NOT warp layouts (keep className clean and SVG lines balanced)
             if (mangaSelector) {
-                mangaSelector.className = `split-screen-selector state-${personaId}`;
+                if (isMobile) {
+                    mangaSelector.className = `split-screen-selector state-${personaId}`;
+                } else {
+                    mangaSelector.className = 'split-screen-selector';
+                }
             }
 
-            // Update SVG dividers
-            if (line1 && line2 && dividerPaths[personaId]) {
-                line1.setAttribute('d', dividerPaths[personaId].line1);
-                line2.setAttribute('d', dividerPaths[personaId].line2);
+            // On mobile, SVG is hidden anyway. On desktop, reset SVG lines to balanced intro state positions
+            if (line1 && line2) {
+                line1.setAttribute('d', dividerPaths.intro.line1);
+                line2.setAttribute('d', dividerPaths.intro.line2);
             }
 
-            // Apply selected accent colors to :root
+            // Apply selected accent colors to :root variables
             root.style.setProperty('--accent-color', `hsl(${data.accent})`);
             root.style.setProperty('--accent-glow', `hsla(${data.accent}, 0.15)`);
 
             // Morph header section text to match selected developer persona
             updateHeroBranding(personaId);
 
-            // Populate and slide open details console
+            // Populate and slide open details console & extended portfolio sections
             if (consoleArea) {
-                // If it's already open, do a content cross-fade transition
                 if (consoleArea.classList.contains('active')) {
                     const consoleLeft = document.querySelector('.console-left');
                     const consoleRight = document.querySelector('.console-right');
@@ -213,10 +272,59 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (consoleRight) consoleRight.style.opacity = '1';
                     }, 250);
                 } else {
-                    // Populate and trigger slide-down expansion
                     populateConsole(data);
                     consoleArea.classList.add('active');
+                    if (extendedArea) {
+                        extendedArea.classList.add('active');
+                    }
                 }
+
+                // Smoothly slide down viewport focus to console details
+                setTimeout(() => {
+                    consoleArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        };
+
+        // Desktop action: trigger selection only when clicking the action button
+        if (selectBtn) {
+            selectBtn.addEventListener('click', triggerSelection);
+        }
+
+        // Mobile action: tap anywhere on the panel cards since buttons can be tiny
+        panel.addEventListener('click', (e) => {
+            const isMobile = window.innerWidth <= 968;
+            if (!isMobile) return;
+
+            // If the tap was directly on the select button, select immediately!
+            if (e.target.classList.contains('select-persona-btn')) {
+                triggerSelection(e);
+                return;
+            }
+
+            if (selectedPersona) {
+                // If already selected, clicking the active panel can reset it
+                if (selectedPersona === personaId) {
+                    resetToIntro();
+                } else {
+                    triggerSelection(e);
+                }
+                return;
+            }
+
+            // Preview state toggle for mobile (simulates hover)
+            if (mangaSelector.classList.contains(`hover-${personaId}`)) {
+                // Second tap on the same card triggers full selection
+                triggerSelection(e);
+            } else {
+                // First tap: preview/expand this card, shrink others
+                mangaSelector.className = `split-screen-selector hover-${personaId}`;
+                // Set the SVG lines just in case (though hidden on mobile)
+                if (line1 && line2 && dividerPaths[`hover_${personaId}`]) {
+                    line1.setAttribute('d', dividerPaths[`hover_${personaId}`].line1);
+                    line2.setAttribute('d', dividerPaths[`hover_${personaId}`].line2);
+                }
+                e.stopPropagation();
             }
         });
     });
@@ -245,7 +353,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const choosePersonaNavBtn = document.querySelector('nav a');
     if (choosePersonaNavBtn) {
         choosePersonaNavBtn.addEventListener('click', (e) => {
-            // Only reset if we are on the main landing or not linking elsewhere
             if (mangaSelector && (mangaSelector.className !== 'split-screen-selector')) {
                 e.preventDefault();
                 resetToIntro();

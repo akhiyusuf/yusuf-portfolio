@@ -45,7 +45,7 @@
                     <div class="panel-badge-vibe">Premium Alignment</div>
                     <h2 class="panel-name">The Executive</h2>
                     <p class="panel-tagline">Fast + High Quality = Expensive</p>
-                    <div class="panel-action-hint">Review Scope ✦</div>
+                    <button class="select-persona-btn">Select Persona ✦</button>
                 </div>
             </div>
 
@@ -57,7 +57,7 @@
                     <div class="panel-badge-vibe">Slow Alignment</div>
                     <h2 class="panel-name">The Titan</h2>
                     <p class="panel-tagline">High Quality + Cheap = Slow</p>
-                    <div class="panel-action-hint">Review Scope ✦</div>
+                    <button class="select-persona-btn">Select Persona ✦</button>
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
                     <div class="panel-badge-vibe">Budget Alignment</div>
                     <h2 class="panel-name">The Underdog</h2>
                     <p class="panel-tagline">Fast + Cheap = Budget</p>
-                    <div class="panel-action-hint">Review Scope ✦</div>
+                    <button class="select-persona-btn">Select Persona ✦</button>
                 </div>
             </div>
 
@@ -123,62 +123,65 @@
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="about-section">
-            <div class="section-divider"></div>
-            <div class="badge">The Developer Behind the Triangle</div>
-            <h2 class="section-title">About Yusuf</h2>
-            <div class="about-grid">
-                <div class="about-card intro-card">
-                    <h3>Adaptive Philosophy</h3>
-                    <p>
-                        Most developers pretend they can offer everything at once: speed, affordability, and elite quality. I believe in complete transparency.
-                    </p>
-                    <p>
-                        By structuring my freelance practice into three distinct personas, you can pick the exact alignment your project demands. No false promises, just pure engineering.
-                    </p>
-                </div>
-                <div class="about-card stack-card">
-                    <h3>Technical Arsenal</h3>
-                    <div class="tech-stack-container">
-                        <span class="tech-badge">Next.js</span>
-                        <span class="tech-badge">React</span>
-                        <span class="tech-badge">Vanilla JS</span>
-                        <span class="tech-badge">Node.js</span>
-                        <span class="tech-badge">TypeScript</span>
-                        <span class="tech-badge">PostgreSQL</span>
-                        <span class="tech-badge">TailwindCSS</span>
-                        <span class="tech-badge">CSS Grid/Flexbox</span>
-                        <span class="tech-badge">Docker</span>
-                        <span class="tech-badge">Git & GitHub</span>
+        <!-- Extended Portfolio (revealed upon selection) -->
+        <div id="extended-portfolio" class="extended-portfolio">
+            <!-- About Section -->
+            <section id="about" class="about-section">
+                <div class="section-divider"></div>
+                <div class="badge">The Developer Behind the Triangle</div>
+                <h2 class="section-title">About Yusuf</h2>
+                <div class="about-grid">
+                    <div class="about-card intro-card">
+                        <h3>Adaptive Philosophy</h3>
+                        <p>
+                            Most developers pretend they can offer everything at once: speed, affordability, and elite quality. I believe in complete transparency.
+                        </p>
+                        <p>
+                            By structuring my freelance practice into three distinct personas, you can pick the exact alignment your project demands. No false promises, just pure engineering.
+                        </p>
+                    </div>
+                    <div class="about-card stack-card">
+                        <h3>Technical Arsenal</h3>
+                        <div class="tech-stack-container">
+                            <span class="tech-badge">Next.js</span>
+                            <span class="tech-badge">React</span>
+                            <span class="tech-badge">Vanilla JS</span>
+                            <span class="tech-badge">Node.js</span>
+                            <span class="tech-badge">TypeScript</span>
+                            <span class="tech-badge">PostgreSQL</span>
+                            <span class="tech-badge">TailwindCSS</span>
+                            <span class="tech-badge">CSS Grid/Flexbox</span>
+                            <span class="tech-badge">Docker</span>
+                            <span class="tech-badge">Git & GitHub</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="contact-section">
-            <div class="section-divider"></div>
-            <div class="badge">Initiate Connection</div>
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-container">
-                <form class="contact-form" onsubmit="event.preventDefault(); alert('Transmission received! Yusuf will get back to you in his current persona state.');">
-                    <div class="form-group">
-                        <input type="text" id="contact-name" required placeholder=" " />
-                        <label for="contact-name">Your Name</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="contact-email" required placeholder=" " />
-                        <label for="contact-email">Email Address</label>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="contact-message" required rows="5" placeholder=" "></textarea>
-                        <label for="contact-message">Project Brief / Message</label>
-                    </div>
-                    <button type="submit" class="cta-button contact-submit">Send Transmission</button>
-                </form>
-            </div>
-        </section>
+            <!-- Contact Section -->
+            <section id="contact" class="contact-section">
+                <div class="section-divider"></div>
+                <div class="badge">Initiate Connection</div>
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="contact-container">
+                    <form class="contact-form" onsubmit="event.preventDefault(); alert('Transmission received! Yusuf will get back to you in his current persona state.');">
+                        <div class="form-group">
+                            <input type="text" id="contact-name" required placeholder=" " />
+                            <label for="contact-name">Your Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="contact-email" required placeholder=" " />
+                            <label for="contact-email">Email Address</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="contact-message" required rows="5" placeholder=" "></textarea>
+                            <label for="contact-message">Project Brief / Message</label>
+                        </div>
+                        <button type="submit" class="cta-button contact-submit">Send Transmission</button>
+                    </form>
+                </div>
+            </section>
+        </div>
     </main>
 
     <!-- Interactive script linking -->
