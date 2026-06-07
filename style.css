@@ -6,14 +6,14 @@
     --card-bg: rgba(13, 13, 20, 0.6);
     --border-rgba: rgba(255, 255, 255, 0.05);
     
-    /* Persona color tokens */
-    --gold-aura: 45, 100%, 55%;
-    --purple-aura: 275, 100%, 60%;
-    --green-aura: 145, 100%, 50%;
+    /* Sleek Persona accent color tokens */
+    --gold-accent: 45, 100%, 55%;
+    --purple-accent: 275, 100%, 60%;
+    --green-accent: 145, 100%, 50%;
     
     /* Active variables (controlled by JS or hover) */
-    --accent-color: hsl(var(--gold-aura));
-    --accent-glow: hsla(var(--gold-aura), 0.15);
+    --accent-color: hsl(var(--gold-accent));
+    --accent-dim: hsla(var(--gold-accent), 0.08);
     
     --font-heading: 'Outfit', sans-serif;
     --font-body: 'Space Grotesk', sans-serif;
@@ -65,7 +65,7 @@ header {
 .logo span {
     color: var(--accent-color);
     -webkit-text-fill-color: initial;
-    text-shadow: 0 0 15px var(--accent-glow);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     transition: all 0.4s ease;
 }
 
@@ -277,41 +277,67 @@ h1 {
 .split-panel img {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
     height: 100%;
     object-fit: cover;
     z-index: 1;
-    filter: grayscale(100%) contrast(90%) brightness(70%);
-    transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    filter: grayscale(100%) contrast(95%) brightness(65%);
+    transition: all 0.65s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 /* Customized focal alignments so Nanamin (left) and Yamcha (right) are always nicely centered & visible */
 .split-panel.expensive img {
-    object-position: 0% 15%; /* Pushed more all the way to the left */
+    width: 140%;
+    left: -78%;
+    object-position: center 15%;
 }
 .split-panel.slow img {
+    width: 140%;
+    left: -20%;
     object-position: center 15%;
 }
 .split-panel.cheap img {
-    object-position: 100% 15%; /* Pushed more all the way to the right */
+    width: 140%;
+    left: 32%;
+    object-position: center 15%;
 }
 
-/* On hover or selection, panels return to realistic color and scale */
-.split-panel:hover img,
-.split-panel.active img {
-    filter: grayscale(0%) contrast(100%) brightness(100%);
-    transform: scale(1.02);
+/* On hover on desktop, panels return to realistic color and scale, and slide focal points dynamically */
+@media (min-width: 969px) {
+    .split-panel:hover img {
+        filter: grayscale(0%) contrast(100%) brightness(95%);
+        transform: scale(1.04);
+    }
+    
+    /* Hover shifting transitions for left panel */
+    .split-screen-selector.hover-expensive .split-panel.expensive img { left: -55%; }
+    .split-screen-selector.hover-expensive .split-panel.slow img { left: -5%; }
+    .split-screen-selector.hover-expensive .split-panel.cheap img { left: 42%; }
+    
+    /* Hover shifting transitions for middle panel */
+    .split-screen-selector.hover-slow .split-panel.expensive img { left: -85%; }
+    .split-screen-selector.hover-slow .split-panel.slow img { left: -20%; }
+    .split-screen-selector.hover-slow .split-panel.cheap img { left: 42%; }
+    
+    /* Hover shifting transitions for right panel */
+    .split-screen-selector.hover-cheap .split-panel.expensive img { left: -85%; }
+    .split-screen-selector.hover-cheap .split-panel.slow img { left: -38%; }
+    .split-screen-selector.hover-cheap .split-panel.cheap img { left: 15%; }
 }
 
-/* Backlighting readability bottom-up dark gradient mask */
+/* Backlighting readability bottom-up rich dark gradient mask */
 .panel-background-glow {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 45%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(to top, 
+        #050508 0%, 
+        rgba(5, 5, 8, 0.98) 20%, 
+        rgba(5, 5, 8, 0.85) 45%, 
+        rgba(5, 5, 8, 0.3) 70%, 
+        rgba(5, 5, 8, 0) 100%
+    );
     opacity: 1;
     transition: opacity 0.5s ease;
     pointer-events: none;
@@ -327,14 +353,27 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-    transition: all 0.5s ease;
-    opacity: 0.9; /* Highly visible by default so they rest clearly on the gradient */
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 0; /* Hidden by default on desktop to keep unhovered narrow slices completely clean */
+    transform: translateY(15px);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 1);
 }
 
-.split-panel.expensive .panel-overlay-info { left: 0; text-align: left; }
-.split-panel.slow .panel-overlay-info { left: 41%; text-align: center; }
-.split-panel.cheap .panel-overlay-info { right: 0; text-align: right; }
+.split-panel.expensive .panel-overlay-info { 
+    left: 0; 
+    text-align: left; 
+    max-width: 28%;
+}
+.split-panel.slow .panel-overlay-info { 
+    left: 31%; 
+    right: 31%; 
+    text-align: center; 
+}
+.split-panel.cheap .panel-overlay-info { 
+    right: 0; 
+    text-align: right; 
+    max-width: 28%;
+}
 
 .panel-badge-vibe {
     font-size: 0.75rem;
@@ -344,9 +383,9 @@ h1 {
     color: var(--accent-color);
 }
 
-.split-panel.expensive .panel-badge-vibe { --accent-color: hsl(var(--gold-aura)); }
-.split-panel.slow .panel-badge-vibe { --accent-color: hsl(var(--purple-aura)); }
-.split-panel.cheap .panel-badge-vibe { --accent-color: hsl(var(--green-aura)); }
+.split-panel.expensive .panel-badge-vibe { --accent-color: hsl(var(--gold-accent)); }
+.split-panel.slow .panel-badge-vibe { --accent-color: hsl(var(--purple-accent)); }
+.split-panel.cheap .panel-badge-vibe { --accent-color: hsl(var(--green-accent)); }
 
 .panel-name {
     font-family: var(--font-heading);
@@ -391,22 +430,21 @@ h1 {
     align-self: flex-end;
 }
 
-.split-panel.active .panel-overlay-info, 
-.split-panel:hover .panel-overlay-info {
-    opacity: 1;
-    transform: translateY(-5px);
-}
-
-.split-panel.active .select-persona-btn,
-.split-panel:hover .select-persona-btn {
-    opacity: 1;
-    transform: translateY(0);
+/* On desktop, text overlays and buttons only reveal themselves on hover */
+@media (min-width: 969px) {
+    .split-panel:hover .panel-overlay-info {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .split-panel:hover .select-persona-btn {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .select-persona-btn:hover {
     background: #fff;
     color: #000;
-}
 }
 
 /* SVG Manga Brush Border lines overlay */
@@ -515,7 +553,6 @@ h1 {
 .feature-item::before {
     content: '✦';
     color: var(--accent-color);
-    text-shadow: 0 0 8px var(--accent-glow);
     transition: color 0.4s;
 }
 
@@ -528,7 +565,7 @@ h1 {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--border-rgba);
     color: var(--accent-color);
-    border-color: var(--accent-glow);
+    border-color: rgba(255, 255, 255, 0.15);
     transition: all 0.4s;
 }
 
@@ -587,7 +624,7 @@ h1 {
     cursor: pointer;
     background: var(--accent-color);
     color: #000;
-    box-shadow: 0 10px 30px -5px var(--accent-glow);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -595,7 +632,7 @@ h1 {
 
 .cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 15px 35px -3px var(--accent-color);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
 }
 
 /* Responsive adjustments */
@@ -635,6 +672,27 @@ h1 {
         right: auto !important;
         text-align: left !important;
         bottom: 1.5rem !important;
+        max-width: 85% !important;
+    }
+    
+    /* Reset images horizontally on mobile to avoid horizontal shifts */
+    .split-panel img {
+        width: 100% !important;
+        left: 0 !important;
+        object-position: center 15% !important;
+        filter: grayscale(100%) contrast(90%) brightness(65%) !important;
+    }
+    
+    /* Reveal colors on mobile preview/active */
+    .split-panel:hover img,
+    .split-panel.active img,
+    .split-screen-selector.hover-expensive .split-panel.expensive img,
+    .split-screen-selector.hover-slow .split-panel.slow img,
+    .split-screen-selector.hover-cheap .split-panel.cheap img,
+    .split-screen-selector.state-expensive .split-panel.expensive img,
+    .split-screen-selector.state-slow .split-panel.slow img,
+    .split-screen-selector.state-cheap .split-panel.cheap img {
+        filter: grayscale(0%) contrast(100%) brightness(95%) !important;
     }
     
     /* Reveal overlay and button on mobile preview/active */
@@ -658,14 +716,14 @@ h1 {
         transform: translateY(0);
     }
 
-    /* Mobile Preview states (tapped/focused) */
+    /* Mobile Preview states (tapped/focused) - Clean and Aura-Free */
     .split-screen-selector.hover-expensive .split-panel.expensive,
     .split-screen-selector.hover-slow .split-panel.slow,
     .split-screen-selector.hover-cheap .split-panel.cheap {
         height: 250px;
         opacity: 1;
-        border-color: var(--accent-color);
-        box-shadow: 0 10px 30px -10px var(--accent-glow);
+        border-color: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
     }
     
     .split-screen-selector.hover-expensive .split-panel:not(.expensive),
@@ -675,19 +733,19 @@ h1 {
         opacity: 0.4;
     }
 
-    /* Mobile Active states (locked/selected) */
+    /* Mobile Active states (locked/selected) - Clean and Aura-Free */
     .split-screen-selector.state-expensive .split-panel.expensive,
     .split-screen-selector.state-slow .split-panel.slow,
     .split-screen-selector.state-cheap .split-panel.cheap {
         height: 270px;
         opacity: 1;
-        border-color: var(--accent-color);
-        box-shadow: 0 15px 40px -10px var(--accent-glow);
+        border-color: rgba(255, 255, 255, 0.45);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
     }
     
     .split-screen-selector[class*="state-"] .split-panel:not(.active) {
         height: 90px;
-        opacity: 0.3;
+        opacity: 0.35;
     }
     
     .details-console {

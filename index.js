@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Apply selected accent colors to :root variables
             root.style.setProperty('--accent-color', `hsl(${data.accent})`);
-            root.style.setProperty('--accent-glow', `hsla(${data.accent}, 0.15)`);
+            root.style.setProperty('--accent-dim', `hsla(${data.accent}, 0.08)`);
 
             // Morph header section text to match selected developer persona
             updateHeroBranding(personaId);
@@ -349,14 +349,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Connect navigation link "Choose Persona" to act as a layout reset trigger
-    const choosePersonaNavBtn = document.querySelector('nav a');
-    if (choosePersonaNavBtn) {
-        choosePersonaNavBtn.addEventListener('click', (e) => {
-            if (mangaSelector && (mangaSelector.className !== 'split-screen-selector')) {
-                e.preventDefault();
-                resetToIntro();
+    // Connect navigation links
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            
+            if (href === '#' || href === '') {
+                if (mangaSelector && (mangaSelector.className !== 'split-screen-selector' || selectedPersona !== null)) {
+                    e.preventDefault();
+                    resetToIntro();
+                }
+            } else if (href.startsWith('#')) {
+                // If no persona is selected, automatically select the default Executive persona
+                if (!selectedPersona) {
+                    e.preventDefault();
+                    const expensivePanel = document.getElementById('panel-expensive');
+                    if (expensivePanel) {
+                        const selectBtn = expensivePanel.querySelector('.select-persona-btn');
+                        if (selectBtn) {
+                            selectBtn.click();
+                        } else {
+                            // Fallback
+                            expensivePanel.click();
+                        }
+                    }
+                    
+                    // Smoothly scroll to the target section after transition starts
+                    setTimeout(() => {
+                        const targetSection = document.querySelector(href);
+                        if (targetSection) {
+                            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }, 400);
+                }
             }
         });
-    }
+    });
 });
+
